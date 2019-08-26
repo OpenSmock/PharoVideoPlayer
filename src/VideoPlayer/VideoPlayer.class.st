@@ -25,7 +25,10 @@ VideoPlayer >> chooseVideoFileDialog [
 VideoPlayer >> createWindow [
 	
 	^ PenWindow new 
-		size: 1280@870;
+		title: self defaultTitle;
+		position: 10@50;
+		size: 1280@850;
+		resizable: false;
 		addDock: (PenViewDock new 
 			size: 1280@870;
 			key: #view;
@@ -34,6 +37,11 @@ VideoPlayer >> createWindow [
 			position: 0@45;
 			size: 1280@720;
 			key: #video)
+]
+
+{ #category : #defaults }
+VideoPlayer >> defaultName [
+	^ 'Waiting for a video ...'
 ]
 
 { #category : #defaults }
@@ -67,7 +75,7 @@ VideoPlayer >> initialize [
 	super initialize.
 	
 	view := VideoPlayerView new.
-	self view videoNameLabel text: self defaultTitle.
+	self view videoNameLabel text: self defaultName.
 	self view timeLabel text: self defaultTime.
 	self view remainingTime text: self defaultTime.
 	
@@ -90,44 +98,41 @@ VideoPlayer >> nullWindowIdError [
 VideoPlayer >> openVideo [
 	| filename id dock rectangle |
 	
+	self window id.
+	
+	"Open dialog to chosse a video file"
 	filename := self chooseVideoFileDialog.
 	filename ifNil: [ ^ self ].
 	
-	[ Gst init ]
-		on: Error
-		do: [ self gstNotFoundError. ^ self ].
-		
-	Gst isInit ifFalse: [ 
-		self gstInitError.
-		^ self ].
+	"Launch video"
+	video := Video fromFile: filename.
+	video launch.
 	
-	video := GstVideo fromQTMp4Filename: filename.
-	video ifNil: [
-		self videoNotFoundError.
-		^ self ].
 	
+	"Open video in SDL window"
 	id := self window id.
-	id ifNil: [ 
-		self nullWindowIdError.
-		^ self ].
-	video videoBox overlaySetWindowHandle: (ExternalAddress fromAddress: id).
+	(id isNil or: [ id = 0 ]) ifTrue: [ self nullWindowIdError. ^ self ].
+	video setWindow: id.
 	
+	"Resize video"
 	dock := self window getDock: #video.
 	rectangle := dock position extent: (dock width pref @ dock height pref).
-	video videoBox overlaySetRenderRectangle: rectangle.
+	video resize: rectangle.
 	
+	"Update view"
 	self view videoNameLabel text: filename printString. 
-	self view remainingTime text: (self timeString: video pipeline durationInSeconds).
+	"self view remainingTime text: (self timeString: video pipeline durationInSeconds)."
 	self view openVideoButton disable.
 	self view stopButton enable.
 	
-	self view playVideo.
+	"Run video"
+	self playVideo.
 ]
 
 { #category : #actions }
 VideoPlayer >> pauseVideo [
 	video pause.
-	timeProcess terminate.
+	"timeProcess terminate."
 
 	self view buttonsContainer removeElement: self view pauseButton.
 	self view buttonsContainer addElement: self view newPlayButton afterIndex: 0.
@@ -138,12 +143,12 @@ VideoPlayer >> playVideo [
 	video play.
 	
 	"Update view"
-	timeProcess := video runningTimeInSeconds 
+	"timeProcess := video runningTimeInSeconds 
 		to: video pipeline durationInSeconds 
 		do: [ :s |
 			self view timeLabel text: (self timeString: s).
 			1 second wait.
-		] fork.
+		] fork."
 	
 
 	self view buttonsContainer removeElement: self view playButton.
@@ -156,11 +161,11 @@ VideoPlayer >> stopVideo [
 	video := nil.
 	
 	"View update"
-	self view videoNameLabel text: self defaultTitle. 
+	self view videoNameLabel text: self defaultName. 
 	self view openVideoButton enable.
 	
-	timeProcess terminate.
-	timeProcess := nil.
+	"timeProcess terminate.
+	timeProcess := nil."
 	self view timeLabel text: self defaultTime.
 	self view remainingTime text: self defaultTime.
 	
@@ -174,7 +179,15 @@ VideoPlayer >> stopVideo [
 
 { #category : #ui }
 VideoPlayer >> timeString: aDurationInSeconds [
-	self halt.
+	| t stream |
+	t := aDurationInSeconds seconds.
+	stream := WriteStream on: String new.
+	t hours printOn: stream base: 10 length: 2 padded: true.
+	stream << $:.
+	t minutes printOn: stream base: 10 length: 2 padded: true.
+	stream << $:.
+	t seconds printOn: stream base: 10 length: 2 padded: true.
+	^ stream contents
 ]
 
 { #category : #errors }

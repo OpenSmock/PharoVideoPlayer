@@ -33,11 +33,13 @@ VideoPlayerView >> initContent [
 				}.
 			PenContainer new
 				key: #videoContainer;
+				layout: PenPositionLayout new; "TODO: remove it"
 				size: 1280@720; 					"TODO: remove it (maximized width and height)"
 				addElement: (PenButton new
 					key: #openVideoButton; 
-					text: 'Open file';
+					text: 'Open video';
 					icon: self openFileIcon;
+					position: 560@280;				"TODO: manage centered alignment"
 					onActionDo: [ self announcer announce: OpenVideo new ]).
 			PenContainer new
 				key: #bottomContainer;
