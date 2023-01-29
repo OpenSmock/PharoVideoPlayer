@@ -1,5 +1,5 @@
 Class {
 	#name : #OpenVideo,
-	#superclass : #Announcement,
+	#superclass : #VideoPlayerAnnouncement,
 	#category : #'VideoPlayer-Announcements'
 }

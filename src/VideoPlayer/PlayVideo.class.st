@@ -1,5 +1,5 @@
 Class {
 	#name : #PlayVideo,
-	#superclass : #Announcement,
+	#superclass : #VideoPlayerAnnouncement,
 	#category : #'VideoPlayer-Announcements'
 }

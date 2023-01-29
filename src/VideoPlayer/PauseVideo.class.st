@@ -1,5 +1,5 @@
 Class {
 	#name : #PauseVideo,
-	#superclass : #Announcement,
+	#superclass : #VideoPlayerAnnouncement,
 	#category : #'VideoPlayer-Announcements'
 }
