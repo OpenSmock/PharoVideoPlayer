@@ -13,7 +13,7 @@ BaselineOfVideoPlayer >> baseline: spec [
 			"Video"
 			spec
 				baseline: 'Video'
-				with: [ spec repository: 'github://OpenSmock/PharoVideo:main' ].
+				with: [ spec repository: 'github://OpenSmock/PharoVideo:main/src' ].
 
 			"VideoPlayer"
 			spec package: 'VideoPlayer' with: [ spec requires: #('Video') ] ]
