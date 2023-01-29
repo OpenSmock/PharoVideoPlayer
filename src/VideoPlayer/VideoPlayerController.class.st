@@ -1,5 +1,5 @@
 Class {
-	#name : #VideoPlayer,
+	#name : #VideoPlayerController,
 	#superclass : #Object,
 	#instVars : [
 		'window',
@@ -12,17 +12,23 @@ Class {
 }
 
 { #category : #'instance creation' }
-VideoPlayer class >> open [ 
+VideoPlayerController class >> open [ 
+
+	self deprecated: 'Old way to use the player'.
 	self new window open
 ]
 
 { #category : #ui }
-VideoPlayer >> chooseVideoFileDialog [
+VideoPlayerController >> chooseVideoFileDialog [
+
+	self deprecated:'the video player should not to have UI stuff'.
 	^ UIManager default chooseFullFileNameMatching: nil.
 ]
 
 { #category : #factory }
-VideoPlayer >> createWindow [
+VideoPlayerController >> createWindow [
+	
+	self deprecated: 'Old way to use the player'.
 	
 	^ PenWindow new 
 		title: self defaultTitle;
@@ -40,38 +46,55 @@ VideoPlayer >> createWindow [
 ]
 
 { #category : #defaults }
-VideoPlayer >> defaultName [
+VideoPlayerController >> defaultName [
+
+	self deprecated:'the video player should not to have UI stuff'.
 	^ 'Waiting for a video ...'
 ]
 
 { #category : #defaults }
-VideoPlayer >> defaultTime [
+VideoPlayerController >> defaultTime [
+
+	self deprecated:'the video player should not to have UI stuff'.
 	^ '00:00:00'
 ]
 
 { #category : #defaults }
-VideoPlayer >> defaultTitle [
+VideoPlayerController >> defaultTitle [
+
+	self deprecated:'the video player should not to have UI stuff'.
 	^ 'Video Player for Pharo'
 ]
 
 { #category : #ui }
-VideoPlayer >> displayError: aString [
+VideoPlayerController >> displayError: aString [
+
+	self deprecated:'the video player should not to have UI stuff'.
 	self inform: aString.
 	self flag: 'to include in gui'.
 ]
 
 { #category : #errors }
-VideoPlayer >> gstInitError [
+VideoPlayerController >> gstInitError [
 	self displayError: 'Gst init failed.'
 ]
 
 { #category : #errors }
-VideoPlayer >> gstNotFoundError [
+VideoPlayerController >> gstNotFoundError [
 	self displayError: 'Gstreamer library not found.'
 ]
 
 { #category : #initialization }
-VideoPlayer >> initialize [ 
+VideoPlayerController >> initialize [
+
+	super initialize
+]
+
+{ #category : #initialization }
+VideoPlayerController >> initializeOld [
+
+	self deprecated:'Concerv this method for refactoring'.
+  
 	super initialize.
 	
 	view := PenfeldVideoPlayerView new.
@@ -90,17 +113,18 @@ VideoPlayer >> initialize [
 ]
 
 { #category : #errors }
-VideoPlayer >> nullWindowIdError [
+VideoPlayerController >> nullWindowIdError [
+
+	self deprecated:'the video player should not to have UI stuff'.
+
 	self displayError: 'Can not find window id. Please use OS window.'
 ]
 
 { #category : #actions }
-VideoPlayer >> openVideo [
+VideoPlayerController >> openVideo [
 	| filename id dock rectangle |
 	
-	self window id.
-	
-	"Open dialog to chosse a video file"
+	"Open dialog to choose a video file"
 	filename := self chooseVideoFileDialog.
 	filename ifNil: [ ^ self ].
 	
@@ -130,7 +154,7 @@ VideoPlayer >> openVideo [
 ]
 
 { #category : #actions }
-VideoPlayer >> pauseVideo [
+VideoPlayerController >> pauseVideo [
 	video pause.
 	"timeProcess terminate."
 
@@ -139,7 +163,7 @@ VideoPlayer >> pauseVideo [
 ]
 
 { #category : #actions }
-VideoPlayer >> playVideo [
+VideoPlayerController >> playVideo [
 	video play.
 	
 	"Update view"
@@ -156,7 +180,7 @@ VideoPlayer >> playVideo [
 ]
 
 { #category : #actions }
-VideoPlayer >> stopVideo [
+VideoPlayerController >> stopVideo [
 	video stop.
 	video := nil.
 	
@@ -178,7 +202,7 @@ VideoPlayer >> stopVideo [
 ]
 
 { #category : #ui }
-VideoPlayer >> timeString: aDurationInSeconds [
+VideoPlayerController >> timeString: aDurationInSeconds [
 	| t stream |
 	t := aDurationInSeconds seconds.
 	stream := WriteStream on: String new.
@@ -191,16 +215,20 @@ VideoPlayer >> timeString: aDurationInSeconds [
 ]
 
 { #category : #errors }
-VideoPlayer >> videoNotFoundError [
+VideoPlayerController >> videoNotFoundError [
 	self displayError: 'Can not find any video at this path.'
 ]
 
 { #category : #accessing }
-VideoPlayer >> view [
+VideoPlayerController >> view [
+	self deprecated:'the video player should not to have UI stuff'.
+	
 	^ view
 ]
 
 { #category : #accessing }
-VideoPlayer >> window [
+VideoPlayerController >> window [
+	self deprecated:'the video player should not to have UI stuff'.
+
 	^ window
 ]
