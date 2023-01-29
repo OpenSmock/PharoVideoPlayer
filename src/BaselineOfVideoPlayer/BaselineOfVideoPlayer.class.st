@@ -14,12 +14,7 @@ BaselineOfVideoPlayer >> baseline: spec [
 			spec
 				baseline: 'Video'
 				with: [ spec repository: 'github://OpenSmock/Video/src' ].
-				
-			"Penfeld"
-			spec
-				baseline: 'Penfeld'
-				with: [ spec repository: 'github://plantec/penfeld/src' ].
 
 			"VideoPlayer"
-			spec package: 'VideoPlayer' with: [ spec requires: #('Video' 'Penfeld') ] ]
+			spec package: 'VideoPlayer' with: [ spec requires: #('Video') ] ]
 ]
