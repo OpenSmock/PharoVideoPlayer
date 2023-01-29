@@ -1,10 +1,10 @@
 Class {
 	#name : #VideoPlayerView,
-	#superclass : #PenView,
+	#superclass : #Object,
 	#instVars : [
 		'announcer'
 	],
-	#category : #VideoPlayer
+	#category : #'VideoPlayer-Core'
 }
 
 { #category : #accessing }

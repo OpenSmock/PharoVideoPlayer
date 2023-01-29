@@ -8,7 +8,7 @@ Class {
 		'video',
 		'timeProcess'
 	],
-	#category : #VideoPlayer
+	#category : #'VideoPlayer-Core'
 }
 
 { #category : #'instance creation' }
