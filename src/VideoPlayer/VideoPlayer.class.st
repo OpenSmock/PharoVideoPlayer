@@ -74,7 +74,7 @@ VideoPlayer >> gstNotFoundError [
 VideoPlayer >> initialize [ 
 	super initialize.
 	
-	view := VideoPlayerView new.
+	view := PenfeldVideoPlayerView new.
 	self view videoNameLabel text: self defaultName.
 	self view timeLabel text: self defaultTime.
 	self view remainingTime text: self defaultTime.

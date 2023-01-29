@@ -1,24 +1,30 @@
 Class {
-	#name : #VideoPlayerView,
+	#name : #PenfeldVideoPlayerView,
 	#superclass : #Object,
 	#instVars : [
 		'announcer'
 	],
-	#category : #'VideoPlayer-Core'
+	#category : #'VideoPlayer-Deprecated'
 }
 
+{ #category : #testing }
+PenfeldVideoPlayerView class >> isDeprecated [
+
+	^ true
+]
+
 { #category : #accessing }
-VideoPlayerView >> announcer [
+PenfeldVideoPlayerView >> announcer [
 	^ announcer
 ]
 
 { #category : #'accessing - ui' }
-VideoPlayerView >> buttonsContainer [
+PenfeldVideoPlayerView >> buttonsContainer [
 	^ self displayComponent getElement: #buttonsContainer
 ]
 
 { #category : #initialization }
-VideoPlayerView >> initContent [
+PenfeldVideoPlayerView >> initContent [
 	self displayComponent: (PenContainer new
 		key: #viewContainer;
 		layout: PenLinearLayout vertical;
@@ -75,7 +81,7 @@ VideoPlayerView >> initContent [
 ]
 
 { #category : #initialization }
-VideoPlayerView >> initStylesheet [
+PenfeldVideoPlayerView >> initStylesheet [
 
 	self displayComponent stylesheet: (PssParser parse: '
 		* { 
@@ -127,7 +133,7 @@ VideoPlayerView >> initStylesheet [
 ]
 
 { #category : #initialization }
-VideoPlayerView >> initialize [ 
+PenfeldVideoPlayerView >> initialize [ 
 	super initialize.
 	
 	announcer := Announcer new.
@@ -137,7 +143,7 @@ VideoPlayerView >> initialize [
 ]
 
 { #category : #factory }
-VideoPlayerView >> newPauseButton [
+PenfeldVideoPlayerView >> newPauseButton [
 	^ PenButton new 
 		key: #pauseButton;
 		addStyleClass: #circularButton;
@@ -148,7 +154,7 @@ VideoPlayerView >> newPauseButton [
 ]
 
 { #category : #factory }
-VideoPlayerView >> newPlayButton [
+PenfeldVideoPlayerView >> newPlayButton [
 	^ PenButton new 
 		key: #playButton;
 		addStyleClass: #circularButton;
@@ -159,56 +165,56 @@ VideoPlayerView >> newPlayButton [
 ]
 
 { #category : #resources }
-VideoPlayerView >> openFileIcon [
+PenfeldVideoPlayerView >> openFileIcon [
 ^ImageReadWriter formFromStream: 'iVBORw0KGgoAAAANSUhEUgAAABMAAAAPCAYAAAAGRPQsAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACZSURBVDiNtdExCgIxFEXR+4YBO0VRC9fjglzRrCFYuAbXMI1gJWKhYBGQmWcxWmhnEm8VUhx+8rF98Wd7EquB7utuYnv9o9NKOmL75Pw2ABXQpz7rr8l2C8wLWIcamAHTAlhTMfxbiYJs34BxJnQGVqUm20rqSmEBhm1GYJQB3YGFpFhisp2kyAvKxcL7INs9oEToASwlXQGeX7t931U/cKMAAAAASUVORK5CYII=' base64Decoded asByteArray readStream
 ]
 
 { #category : #'accessing - ui' }
-VideoPlayerView >> openVideoButton [
+PenfeldVideoPlayerView >> openVideoButton [
 	^ self displayComponent getElement: #openVideoButton
 ]
 
 { #category : #'accessing - ui' }
-VideoPlayerView >> pauseButton [
+PenfeldVideoPlayerView >> pauseButton [
 	^ self displayComponent getElement: #pauseButton
 ]
 
 { #category : #resources }
-VideoPlayerView >> pauseVideoIcon [
+PenfeldVideoPlayerView >> pauseVideoIcon [
 ^ImageReadWriter formFromStream: 'iVBORw0KGgoAAAANSUhEUgAAABAAAAAXCAYAAAAC9s/ZAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAApSURBVDiNY/iPHYQyoIH///+HYlPIhK6QVDBqwKgBowaMGjBqABUNAAAnSy6pIqwUhQAAAABJRU5ErkJggg==' base64Decoded asByteArray readStream
 ]
 
 { #category : #'accessing - ui' }
-VideoPlayerView >> playButton [
+PenfeldVideoPlayerView >> playButton [
 	^ self displayComponent getElement: #playButton
 ]
 
 { #category : #resources }
-VideoPlayerView >> playVideoIcon [
+PenfeldVideoPlayerView >> playVideoIcon [
 ^ImageReadWriter formFromStream: 'iVBORw0KGgoAAAANSUhEUgAAABMAAAAbCAYAAACeA7ShAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADfSURBVEiJrdQhTgNRFIbRCwhCMGAJpgsggMYU3wUgMKwAWcsWkCQoBKJbaDUbaBMsVKLqmkDSg2heQgNlZjr3W8DJe/O/TGCAw8jIsjdcZGHwhTvsZGClF3SyMJjhKgsrPWE/C4NXnGdh8Gk5znYGVhriKAuDD/SyMFjgAXsZWGmCkywM5riNiNiCWrNX95iFjSLipu015+gr768FNMbpyvk2QBa4x+6vyzaE3tFd++UaQNW/9xrIDNe1Nq2ARjiuBf2DrU7eApvgrBHyB7Z+8obYFJcbIz+wZxy0hiLiGzpozefaBVRbAAAAAElFTkSuQmCC' base64Decoded asByteArray readStream
 ]
 
 { #category : #'accessing - ui' }
-VideoPlayerView >> remainingTime [
+PenfeldVideoPlayerView >> remainingTime [
 	^ self displayComponent getElement: #remainingTime
 ]
 
 { #category : #'accessing - ui' }
-VideoPlayerView >> stopButton [
+PenfeldVideoPlayerView >> stopButton [
 	^ self displayComponent getElement: #stopButton
 ]
 
 { #category : #resources }
-VideoPlayerView >> stopVideoIcon [
+PenfeldVideoPlayerView >> stopVideoIcon [
 ^ImageReadWriter formFromStream: 'iVBORw0KGgoAAAANSUhEUgAAAAsAAAAMCAYAAAC0qUeeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAAYSURBVCiRY/z///9/BiIBE7EKRxUPB8UAeX4EFKMKlOwAAAAASUVORK5CYII=' base64Decoded asByteArray readStream
 ]
 
 { #category : #'accessing - ui' }
-VideoPlayerView >> timeLabel [
+PenfeldVideoPlayerView >> timeLabel [
 	^ self displayComponent getElement: #timeLabel
 ]
 
 { #category : #'accessing - ui' }
-VideoPlayerView >> videoNameLabel [
+PenfeldVideoPlayerView >> videoNameLabel [
 	^ self displayComponent getElement: #videoNameLabel
 ]
